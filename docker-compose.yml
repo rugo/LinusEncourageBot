@@ -1,0 +1,6 @@
+version: "3.9"
+services:
+  bot:
+    build: app
+    env_file: 
+      - token.env # this should contain DISCORD_TOKEN=$YOUR_TOKEN and BOT_CHANCE
