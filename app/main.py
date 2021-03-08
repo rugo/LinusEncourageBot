@@ -4,6 +4,8 @@ import json
 import logging as log
 import os
 
+log.basicConfig(level=log.INFO)
+
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Bot will, on average, reply to 1 out of CHANCE messages 
 CHANCE = int(os.getenv("BOT_CHANCE", "1"))
@@ -18,7 +20,7 @@ rants = json.load(open("data/rants.json"))
 
 class MyClient(discord.Client):
     async def on_ready(self):
-        log.debug('Logged in as %s [%d]', self.user.name, self.user.id)
+        log.info('Logged in as %s [%d]', self.user.name, self.user.id)
 
     async def on_message(self, message):
         # we do not want the bot to reply to itself
