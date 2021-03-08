@@ -22,6 +22,8 @@ class MyClient(discord.Client):
         print(self.user.name)
         print(self.user.id)
         print('------')
+        activity = discord.Game(name="nothing", type=3)
+        await self.change_presence(status=discord.Status.idle, activity=activity)
 
     async def on_message(self, message):
         # we do not want the bot to reply to itself
