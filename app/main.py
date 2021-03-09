@@ -3,13 +3,19 @@ import random
 import json
 import logging as log
 import os
+import time
 
 log.basicConfig(level=log.INFO)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
-# Bot will, on average, reply to 1 out of CHANCE messages 
-CHANCE = int(os.getenv("BOT_CHANCE", "1"))
 
+# Bot will reply in 1 out of CHANCE times
+DEFAULT_CHANCE = 10
+CHANCES = {
+    "RedRocket": 8,
+    "TestServerBots": 1,
+    "Cyber Security Challenge Germany": 500
+}
 
 if TOKEN is None:
     log.error("No DISCORD_TOKEN supplied in environment.")
@@ -27,7 +33,13 @@ class MyClient(discord.Client):
         if message.author.id == self.user.id:
             return
 
-        if random.randint(1, CHANCE) == 1:
+        server_name = message.guild.name
+        chance = CHANCES.get(server_name, DEFAULT_CHANCE)
+
+        if random.randint(1, chance) == 1:
+            log.info("Replying to Server: %s, Message: %s", server_name, message.content)
+            async with message.channel.typing():
+                time.sleep(random.randint(1, 2))
             await message.reply(random.choice(rants)["text"], mention_author=True)
 
 client = MyClient()
