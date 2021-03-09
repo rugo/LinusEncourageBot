@@ -14,7 +14,7 @@ DEFAULT_CHANCE = 10
 CHANCES = {
     "RedRocket": 8,
     "TestServerBots": 1,
-    "Cyber Security Challenge Germany": 500
+    "Cyber Security Challenge Germany": 100
 }
 
 if TOKEN is None:
@@ -29,8 +29,8 @@ class MyClient(discord.Client):
         log.info('Logged in as %s [%d]', self.user.name, self.user.id)
 
     async def on_message(self, message):
-        # we do not want the bot to reply to itself
-        if message.author.id == self.user.id:
+        # we do not want the bot to reply to itself or other bots
+        if message.author.bot:
             return
 
         server_name = message.guild.name
