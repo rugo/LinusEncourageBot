@@ -27,6 +27,8 @@ rants = json.load(open("data/rants.json"))
 class MyClient(discord.Client):
     async def on_ready(self):
         log.info('Logged in as %s [%d]', self.user.name, self.user.id)
+        activity = discord.Game(name="motivating devs & hackers", type=3)
+        await self.change_presence(status=discord.Status.idle, activity=activity)
 
     async def on_message(self, message):
         # we do not want the bot to reply to itself or other bots
