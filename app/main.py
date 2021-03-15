@@ -30,7 +30,7 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         # we do not want the bot to reply to itself or other bots
-        if message.author.bot:
+        if message.author.bot or "ctf" in message.channel.name.lower():
             return
 
         server_name = message.guild.name
